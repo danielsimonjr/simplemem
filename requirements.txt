@@ -62,7 +62,7 @@ langgraph-prebuilt==1.0.5
 langgraph-sdk==0.2.10
 langmem==0.0.30
 langsmith==0.4.48
-litellm==1.79.1
+litellm==1.83.0
 llmlingua==0.2.2
 MarkupSafe==3.0.3
 matplotlib==3.10.7
