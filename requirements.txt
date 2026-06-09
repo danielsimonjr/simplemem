@@ -96,7 +96,7 @@ pillow==12.2.0
 portalocker==3.2.0
 posthog==7.0.1
 propcache==0.4.1
-protobuf==5.29.5
+protobuf==5.29.6
 psutil==7.1.0
 pyarrow==23.0.1
 pydantic==2.12.0
