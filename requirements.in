@@ -1,0 +1,18 @@
+# Direct dependencies for simplemem (compile with: uv pip compile requirements.in -o requirements.txt)
+# LLM access is OpenAI-direct (see config.py.example); the prior langchain/langgraph/litellm
+# pins were unused dead deps and were removed (they caused the unresolvable conflicts).
+openai==2.3.0
+tiktoken==0.12.0
+sentence-transformers==5.1.1
+bert-score==0.3.13
+rouge-score==0.1.2
+nltk==3.9.4
+lancedb==0.25.3
+pyarrow==23.0.1
+numpy==2.2.6
+pydantic==2.12.0
+dateparser==1.2.2
+tqdm==4.67.1
+
+# transformers comes transitively (sentence-transformers / bert-score); 4.57.0 is yanked
+transformers!=4.57.0
