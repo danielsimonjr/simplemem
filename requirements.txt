@@ -175,7 +175,7 @@ scipy==1.15.3
     #   sentence-transformers
 sentence-transformers==5.1.1
     # via -r requirements.in
-setuptools==82.0.1
+setuptools==81.0.0
     # via torch
 six==1.17.0
     # via
@@ -193,8 +193,9 @@ tiktoken==0.12.0
     # via -r requirements.in
 tokenizers==0.22.1
     # via transformers
-torch==2.8.0
+torch==2.12.0
     # via
+    #   -r requirements.in
     #   bert-score
     #   sentence-transformers
 tqdm==4.67.1

@@ -16,3 +16,7 @@ tqdm==4.67.1
 
 # transformers comes transitively (sentence-transformers / bert-score); 4.57.0 is yanked
 transformers!=4.57.0
+
+# torch is transitive (sentence-transformers); floor past the patched advisories
+# (2.9.1 medium, 2.10.0 low). The third torch advisory (<=2.12.0) has no patch.
+torch>=2.10.0
