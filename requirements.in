@@ -14,9 +14,16 @@ pydantic==2.12.0
 dateparser==1.2.2
 tqdm==4.67.1
 
-# transformers comes transitively (sentence-transformers / bert-score); 4.57.0 is yanked
+# transformers comes transitively (sentence-transformers / bert-score); 4.57.0 is yanked.
+# NOTE (Dependabot #43, Trainer-class RCE, vuln <5.0.0rc3): the fix needs transformers>=5,
+# but the pinned sentence-transformers==5.1.1 caps transformers<5.0.0 — clearing #43 also
+# requires bumping sentence-transformers>=5.6.0 (which declares transformers<6.0.0). That is
+# an unverifiable major bump to the core embedding stack (no CI; heavy ML deps), fixing a
+# non-exploitable alert (simplemem never calls transformers.Trainer). Deferred to a
+# deliberate, runtime-tested upgrade (run test_locomo10.py after). See sweep ledger.
 transformers!=4.57.0
 
 # torch is transitive (sentence-transformers); floor past the patched advisories
-# (2.9.1 medium, 2.10.0 low). The third torch advisory (<=2.12.0) has no patch.
-torch>=2.10.0
+# (2.9.1 medium, 2.10.0 low). The <=2.12.0 advisory (#64, torch.jit.script memory
+# corruption) is now patched in 2.12.1 — bumped the floor from 2.10.0.
+torch>=2.12.1
