@@ -3,7 +3,7 @@
 # pins were unused dead deps and were removed (they caused the unresolvable conflicts).
 openai==2.3.0
 tiktoken==0.12.0
-sentence-transformers==5.1.1
+sentence-transformers>=5.6.0
 bert-score==0.3.13
 rouge-score==0.1.2
 nltk==3.9.4
@@ -14,14 +14,13 @@ pydantic==2.12.0
 dateparser==1.2.2
 tqdm==4.67.1
 
-# transformers comes transitively (sentence-transformers / bert-score); 4.57.0 is yanked.
-# NOTE (Dependabot #43, Trainer-class RCE, vuln <5.0.0rc3): the fix needs transformers>=5,
-# but the pinned sentence-transformers==5.1.1 caps transformers<5.0.0 — clearing #43 also
-# requires bumping sentence-transformers>=5.6.0 (which declares transformers<6.0.0). That is
-# an unverifiable major bump to the core embedding stack (no CI; heavy ML deps), fixing a
-# non-exploitable alert (simplemem never calls transformers.Trainer). Deferred to a
-# deliberate, runtime-tested upgrade (run test_locomo10.py after). See sweep ledger.
-transformers!=4.57.0
+# transformers comes transitively (sentence-transformers / bert-score).
+# Dependabot #43 (Trainer-class RCE, vuln <5.0.0rc3) is fixed by floor transformers>=5.0.0.
+# This required bumping sentence-transformers 5.1.1 -> >=5.6.0 (which allows transformers<6.0.0
+# instead of <5.0.0). bert-score 0.3.13 declares only transformers>=3.0.0 (no upper cap), so it
+# doesn't block v5. Verified: sentence-transformers embedding + bert-score scoring both work
+# under transformers 5.x (see the upgrade commit). 4.57.0 was yanked; the >=5 floor excludes it.
+transformers>=5.0.0
 
 # torch is transitive (sentence-transformers); floor past the patched advisories
 # (2.9.1 medium, 2.10.0 low). The <=2.12.0 advisory (#64, torch.jit.script memory
