@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.13'
+      # Byte-compile every module as a syntax gate. This repo has no unit tests
+      # (test_locomo10.py / test_ref/* are LLM benchmark scripts that need API
+      # keys, datasets, and the exact-pinned heavy ML stack), so compileall is
+      # the meaningful check that keeps deps out of the CI critical path.
+      - run: python -m compileall -q .
