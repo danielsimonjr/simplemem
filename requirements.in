@@ -6,7 +6,7 @@ tiktoken==0.12.0
 sentence-transformers>=5.6.0
 bert-score==0.3.13
 rouge-score==0.1.2
-nltk==3.9.4
+nltk==3.10.0
 lancedb==0.25.3
 pyarrow==23.0.1
 numpy==2.2.6
@@ -25,4 +25,13 @@ transformers>=5.0.0
 # torch is transitive (sentence-transformers); floor past the patched advisories
 # (2.9.1 medium, 2.10.0 low). The <=2.12.0 advisory (#64, torch.jit.script memory
 # corruption) is now patched in 2.12.1 — bumped the floor from 2.10.0.
-torch>=2.12.1
+# 2026-08-02: a further advisory covers <=2.12.1, patched in 2.13.0.
+torch>=2.13.0
+
+# pillow is transitive (sentence-transformers / bert-score image paths). TEN of this
+# repo's fourteen high alerts were this one package — every advisory patched in 12.3.0.
+# Same shape as remember-mcp, where 10 of 11 highs were also pillow.
+pillow>=12.3.0
+
+# setuptools is transitive (build backends). Advisory <83.0.0.
+setuptools>=83.0.0
